@@ -14,9 +14,9 @@ warnings.filterwarnings("ignore")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--newpath', '-n', type=str, nargs=3, required=True,
+    parser.add_argument('--rdata', '-rd', type=str, nargs=3, required=True,
                         help='Location of input files, must be 3 files')
-    parser.add_argument('--path', '-p', type=str, nargs=3, required=True,
+    parser.add_argument('--featuredata', '-fd', type=str, nargs=3, required=True,
                         help='Location of input files, must be 3 files')
     parser.add_argument('--metric', '-m', type=str, choices=['braycurtis', 'canberra', 'chebyshev', 'cityblock',
                         'correlation', 'cosine', 'dice', 'euclidean', 'hamming', 'jaccard', 'kulsinski',
@@ -27,14 +27,14 @@ if __name__ == '__main__':
                         help='(0, N) int, number of neighbors to consider when creating affinity matrix. See Notes of :py:func snf.compute.affinity_matrix for more details. Default: 20.')
     parser.add_argument('--mu', '-mu', type=int, default=0.5,
                         help='(0, 1) float, Normalization factor to scale similarity kernel when constructing affinity matrix. See Notes of :py:func snf.compute.affinity_matrix for more details. Default: 0.5.')
-    args = parser.parse_args(['-n', 'data/BRCA/DEG-results/Met.txt', 'data/BRCA/DEG-results/SCNV.txt', 'data/BRCA/DEG-results/Seq_RNA.txt',
-                              '-p', 'data/BRCA/Met.csv', 'data/BRCA/SCNV.csv', 'data/BRCA/Seq_RNA.csv',
+    args = parser.parse_args(['-rd', 'data/BRCA/DEG-results/Met.txt', 'data/BRCA/DEG-results/SCNV.txt', 'data/BRCA/DEG-results/Seq_RNA.txt',
+                              '-fd', 'data/BRCA/Met.csv', 'data/BRCA/SCNV.csv', 'data/BRCA/Seq_RNA.csv',
                               '-m', 'cosine'])
 
     print('Load data files...')
-    omics_data_1 = pd.read_csv(args.path[0], header=0, index_col=0)
-    omics_data_2 = pd.read_csv(args.path[1], header=0, index_col=0)
-    omics_data_3 = pd.read_csv(args.path[2], header=0, index_col=0)
+    omics_data_1 = pd.read_csv(args.featuredata[0], header=0, index_col=0)
+    omics_data_2 = pd.read_csv(args.featuredata[1], header=0, index_col=0)
+    omics_data_3 = pd.read_csv(args.featuredata[2], header=0, index_col=0)
     print(omics_data_1.shape, omics_data_2.shape, omics_data_3.shape)
 
     if omics_data_1.shape[0] != omics_data_2.shape[0] or omics_data_1.shape[0] != omics_data_3.shape[0]:
@@ -43,9 +43,9 @@ if __name__ == '__main__':
 
 
     print('Load DEG files...')
-    DEG_data_1 = pd.read_csv(args.newpath[0], header=None,names=['DEGname'])
-    DEG_data_2 = pd.read_csv(args.newpath[1], header=None,names=['DEGname'])
-    DEG_data_3 = pd.read_csv(args.newpath[2], header=None,names=['DEGname'])
+    DEG_data_1 = pd.read_csv(args.rdata[0], header=None,names=['DEGname'])
+    DEG_data_2 = pd.read_csv(args.rdata[1], header=None,names=['DEGname'])
+    DEG_data_3 = pd.read_csv(args.rdata[2], header=None,names=['DEGname'])
     common_data = pd.merge(DEG_data_1, DEG_data_2, on='DEGname').merge(DEG_data_3, on='DEGname')
 
     common_list = common_data['DEGname'].tolist()
