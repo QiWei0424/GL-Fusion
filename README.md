@@ -17,12 +17,12 @@ To run GLGCN, ensure the following dependencies are installed:
 
 
 ## Files  
-- `GLGCN_run.py`: Main script to execute the entire GLGCN pipeline for cancer classification.  
+- `GLGCN_run.py`: Main script that performs locus-level feature fusion using the fused graph structure and multi-omics data, ultimately achieving cancer subtype classification.  
 - `LCGN_model.py`: Defines the SLGCN model architecture for locus-level feature fusion and classification.  
 - `PPI.py`: Handles the integration of Protein-Protein Interaction (PPI) data from the STRING database to supplement network edges.  
 - `README.md`: Project documentation.  
 - `SE.py`: Implements the structural entropy-based edge filtering for network optimization.  
-- `SNF.py`: Performs Similarity Network Fusion to integrate gene similarity graphs from mult-omics.  
+- `GLSF.py`: Realizing graph-level structure fusion.  
 - `__init__.py`: Initializes the Python package.  
 - `biomarker.py`: Identifies and processes biomarkers relevant to cancer subtype classification.  
 - `layer.py`: Defines the graph convolutional layers used in the SLGCN model.  
@@ -31,14 +31,14 @@ To run GLGCN, ensure the following dependencies are installed:
 
 ## Usage  
 1. **Prepare Data**: Ensure your multi-omics data is formatted as required (refer to `preprocess.py` for details).
-2. **Graph-level structure fusion**: Run SNF.py to perform Similarity Network Fusion and obtain the fused gene similarity graph. Use the following command:
+2. **Graph-level structure fusion**: Run GLSF.py to accomplish graph-level structure fusion. Use the following command:
    ```bash
    python SNF.py -rd data/BRCA/DEG_results/Met.txt data/BRCA/DEG_results/SCNV.txt data/BRCA/DEG_results/Seq_RNA.txt -fd data/BRCA/Met.csv data/BRCA/SCNV.csv data/BRCA/Seq_RNA.csv --metric cosine
    ```
    - `-rd`: Path of significant gene directory screened by differential analysis.  
    - `-fd`: Path to the multi-omics data directory.
    
-4. **Run the Pipeline**: Execute the main script to perform the entire workflow:  
+4. **Locus-Level Feature Fusion and Classification**: Execute the main script GLGCN_run.py to perform locus-level feature fusion on the fused graph structure and multi-omics data, achieving cancer subtype classification:  
    ```bash
    python GLGCN_run.py -rd data/BRCA/DEG_results/Met.txt data/BRCA/DEG_results/SCNV.txt data/BRCA/DEG_results/Seq_RNA.txt -fd data/BRCA/Met.csv data/BRCA/SCNV.csv data/BRCA/Seq_RNA.csv -fad results/BRCA-SNF.csv -ld data/BRCA/label.csv
    ```
