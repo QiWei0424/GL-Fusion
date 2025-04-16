@@ -30,16 +30,20 @@ To run GLGCN, ensure the following dependencies are installed:
 - `utils.py`: Contains utility functions for loading data.  
 
 ## Usage  
-1. **Prepare Data**: Ensure your multi-omics data is formatted as required (refer to `preprocess.py` for details). Additionally, download PPI data from the STRING database and place it in the appropriate directory.  
-2. **Run the Pipeline**: Execute the main script to perform the entire workflow:  
+1. **Prepare Data**: Ensure your multi-omics data is formatted as required (refer to `preprocess.py` for details).
+2. **Graph-level structure fusion**: Run SNF.py to perform Similarity Network Fusion and obtain the fused gene similarity graph. Use the following command:
    ```bash
-   python GLGCN_run.py --data_path <path_to_data> --ppi_path <path_to_ppi_data> --output_path <path_to_output>
+   python SNF.py -rd data/BRCA/DEG_results/Met.txt data/BRCA/DEG_results/SCNV.txt data/BRCA/DEG_results/Seq_RNA.txt -fd data/BRCA/Met.csv data/BRCA/SCNV.csv data/BRCA/Seq_RNA.csv --metric cosine
    ```
-   - `--data_path`: Path to the multi-omics data directory.  
-   - `--ppi_path`: Path to the PPI data file.  
-   - `--output_path`: Directory to save results (e.g., fused network, classification predictions).  
-3. **Tune Hyperparameters**: Modify hyperparameters (e.g., number of nearest neighbors \( K \), iteration rounds in SNF) in `utils.py` or pass them as arguments in the command line (see script help for details).  
-4. **Evaluate Results**: The script outputs classification performance metrics (e.g., accuracy, F1-score) and biomarker analysis results in the specified output directory.
+   - `-rd`: Path of significant gene directory screened by differential analysis.  
+   - `-fd`: Path to the multi-omics data directory.
+   
+4. **Run the Pipeline**: Execute the main script to perform the entire workflow:  
+   ```bash
+   python GLGCN_run.py -rd data/BRCA/DEG_results/Met.txt data/BRCA/DEG_results/SCNV.txt data/BRCA/DEG_results/Seq_RNA.txt -fd data/BRCA/Met.csv data/BRCA/SCNV.csv data/BRCA/Seq_RNA.csv -fad results/BRCA-SNF.csv -ld data/BRCA/label.csv
+   ```
+   - `-fad`: Path of the fused graph structure directory.
+   - `-ld`: Path of the sample label directory.
 
 For detailed implementation of each module, refer to the corresponding Python scripts (e.g., `SNF.py` for network fusion, `LCGN_model.py` for the SLGCN model).
 
