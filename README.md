@@ -1,5 +1,5 @@
-# GLGCN  
-A multi-omics integration method based on graph-level structure fusion and locus-level feature fusion for cancer subtype classification.
+# GL-Fusion 
+GL-Fusion:A multi-omics integration method based on graph-level structure fusion and locus-level feature fusion for cancer subtype classification.
 
 ## Overview  
 ![GCN4_00](https://github.com/user-attachments/assets/11f72ef3-2d56-45de-af8e-40eb66105177)
