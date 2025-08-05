@@ -2,8 +2,8 @@
 GL-Fusion:A multi-omics integration method based on graph-level structure fusion and locus-level feature fusion for cancer subtype classification.
 
 ## Overview  
-![GCN4_00](https://github.com/user-attachments/assets/11f72ef3-2d56-45de-af8e-40eb66105177)
-As shown in figure, in the graph-level structure fusion module, we first construct gene-gene graphs based on multi-omics data, integrate multi-omics information using SNF, and optimize the graph structure through structural entropy-based edge filtering and PPI network-based edge supplementation. In the locus-level feature fusion module, we integrate gene features from different omics layers using a LGCN, preserving the unique information of each omics while capturing complementary characteristics across omics. This process generates gene-level fused representations and predicts cancer subtypes, enabling efficient classification.
+![GCN5_01](https://github.com/user-attachments/assets/dd2183a8-c16d-40dd-a370-016854b49d04)
+The framework of GF-Fusion. (1) Graph-level structure fusion: we first construct gene-gene graphs based on multi-omics data, integrate multi-omics information using SNF, and optimize the graph structure through structural entropy-based edge filtering and PPI network-based edge supplementation. (2) Locus-level feature fusion: we integrate gene features from different omics layers using a LGCN, preserving the unique information of each omics while capturing complementary characteristics across omics.
 
 ## Requirements  
 To run GLGCN, ensure the following dependencies are installed:  
